@@ -10,9 +10,16 @@
 </head>
 <body>
     <div id="controls">
-        <label for="grid-size">Choose a Grid Size (10 to 100)</label>
-        <input type="number" name="grid-size" min="10" max="100" id="grid-size-input" value="16">
-        <button id="btn-grid-size">Update</button>
+        <div class="controls-group" id="controls-gridSize">
+            <label for="gridSize">Choose a Grid Size (10 to 100)</label>
+            <input type="number" name="gridSize" min="10" max="100" id="gridSize-input" value="16">
+            <button id="btn-gridSize">Update</button>
+        </div>
+        <div class="controls-group" id="controls-selectColor">
+            <label for="color">Select Color</label>
+            <input type="color" id="selectColor" name="color" value="#ff0000">
+            <button id="btn-selectColor">Update</button>
+        </div>
     </div>
     
     <div id="container"></div>
