@@ -43,44 +43,24 @@ btnReset.addEventListener('click', ()=>{
     cellColor = selectColorInput.value;
     //reset grid
     gridSize = 16;
-    colorMode = 'color';
-    btnColorMode.classList.add('mode-active');
-    btnColorOpacityMode.classList.remove('mode-active');
-    btnRandomMode.classList.remove('mode-active');
-    btnEraserMode.classList.remove('mode-active');
+    setColorMode('color');
     updateGrid(gridSize);
 })
 
 // pointer mode buttons
 // color mode
 btnColorMode.addEventListener('click', ()=>{
-    colorMode = 'color';
-    btnColorMode.classList.add('mode-active');
-    btnColorOpacityMode.classList.remove('mode-active');
-    btnRandomMode.classList.remove('mode-active');
-    btnEraserMode.classList.remove('mode-active');
+    setColorMode('color');
 });
 btnColorOpacityMode.addEventListener('click', ()=>{
-    colorMode = 'colorOpacity';
-    btnColorMode.classList.remove('mode-active');
-    btnColorOpacityMode.classList.add('mode-active');
-    btnRandomMode.classList.remove('mode-active');
-    btnEraserMode.classList.remove('mode-active');
+    setColorMode('colorOpacity');
 });
 // random mode
-btnRandomMode.addEventListener('click', ()=>{
-    colorMode = 'random';
-    btnColorMode.classList.remove('mode-active');
-    btnColorOpacityMode.classList.remove('mode-active');
-    btnRandomMode.classList.add('mode-active');
-    btnEraserMode.classList.remove('mode-active');
+btnRandomMode.addEventListener('click', ()=>{   
+    setColorMode('random');
 });
 btnEraserMode.addEventListener('click', ()=>{
-    colorMode = 'eraser';
-    btnColorMode.classList.remove('mode-active');
-    btnColorOpacityMode.classList.remove('mode-active');
-    btnRandomMode.classList.remove('mode-active');
-    btnEraserMode.classList.add('mode-active');
+    setColorMode('eraser');
 });
 
 // FUNCTIONS
@@ -138,4 +118,18 @@ function updateColor(cell, mode) {
         default:
             console.error('Something Wrong in updateColor')
     }
+}
+
+// set color mode and update mode buttons class
+function setColorMode(mode) {
+    colorMode = mode;
+
+    const modeButtons = [btnColorMode, btnColorOpacityMode, btnRandomMode, btnEraserMode];
+    modeButtons.forEach((btn)=>{
+        if (btn.value === colorMode) {
+            btn.classList.add('mode-active');
+        } else {
+            btn.classList.remove('mode-active');
+        }
+    });
 }
