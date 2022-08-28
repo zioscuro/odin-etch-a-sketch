@@ -6,6 +6,7 @@ const gridSizeInput = document.querySelector('#gridSize-input');
 const selectColorInput = document.querySelector('#selectColor');
 const btnReset = document.querySelector('#btn-reset');
 const btnColorMode = document.querySelector('#btn-colorMode');
+const btnColorOpacityMode = document.querySelector('#btn-colorOpacityMode');
 const btnRandomMode = document.querySelector('#btn-randomMode');
 const btnEraserMode = document.querySelector('#btn-eraserMode');
 
@@ -43,6 +44,10 @@ btnReset.addEventListener('click', ()=>{
     //reset grid
     gridSize = 16;
     colorMode = 'color';
+    btnColorMode.classList.add('mode-active');
+    btnColorOpacityMode.classList.remove('mode-active');
+    btnRandomMode.classList.remove('mode-active');
+    btnEraserMode.classList.remove('mode-active');
     updateGrid(gridSize);
 })
 
@@ -51,6 +56,14 @@ btnReset.addEventListener('click', ()=>{
 btnColorMode.addEventListener('click', ()=>{
     colorMode = 'color';
     btnColorMode.classList.add('mode-active');
+    btnColorOpacityMode.classList.remove('mode-active');
+    btnRandomMode.classList.remove('mode-active');
+    btnEraserMode.classList.remove('mode-active');
+});
+btnColorOpacityMode.addEventListener('click', ()=>{
+    colorMode = 'colorOpacity';
+    btnColorMode.classList.remove('mode-active');
+    btnColorOpacityMode.classList.add('mode-active');
     btnRandomMode.classList.remove('mode-active');
     btnEraserMode.classList.remove('mode-active');
 });
@@ -58,12 +71,14 @@ btnColorMode.addEventListener('click', ()=>{
 btnRandomMode.addEventListener('click', ()=>{
     colorMode = 'random';
     btnColorMode.classList.remove('mode-active');
+    btnColorOpacityMode.classList.remove('mode-active');
     btnRandomMode.classList.add('mode-active');
     btnEraserMode.classList.remove('mode-active');
 });
 btnEraserMode.addEventListener('click', ()=>{
     colorMode = 'eraser';
     btnColorMode.classList.remove('mode-active');
+    btnColorOpacityMode.classList.remove('mode-active');
     btnRandomMode.classList.remove('mode-active');
     btnEraserMode.classList.add('mode-active');
 });
@@ -101,12 +116,26 @@ function updateGrid(size) {
 function updateColor(cell, mode) {
     switch (mode) {
         case 'color':
+            cell.style.backgroundColor = cellColor;            
+            break;
+        case 'colorOpacity':
             cell.style.backgroundColor = cellColor;
+            currentOpacity = parseFloat(cell.style.opacity);
+            if (currentOpacity > 0  && currentOpacity < 1) {
+                cell.style.opacity = '' + (currentOpacity + 0.1);                
+            } else if (currentOpacity === 1) {
+                break;
+            } else {
+                cell.style.opacity = '0.1';
+            }
             break;
         case 'random':
             cell.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
             break;
         case 'eraser':
             cell.style.backgroundColor = '#ffffff';
+            break;
+        default:
+            console.error('Something Wrong in updateColor')
     }
 }
