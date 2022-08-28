@@ -4,6 +4,7 @@ const container = document.querySelector('#container');
 // Controls DOM elements
 const gridSizeInput = document.querySelector('#gridSize-input');
 const selectColorInput = document.querySelector('#selectColor');
+const btnReset = document.querySelector('#btn-reset');
 
 // Initial grid setup
 let gridSize = 16;
@@ -21,7 +22,7 @@ gridSizeInput.addEventListener('change', ()=>{
     }
     // get new grid size from input and create new grid
     gridSize = gridSizeInput.value;
-    createGrid(gridSize);
+    updateGrid(gridSize);
 });
 
 // change pointer color 
@@ -29,6 +30,16 @@ selectColorInput.addEventListener('change', ()=>{
     // get new color from input and update cellColor variable
     cellColor = selectColorInput.value;
 });
+
+// reset grid button
+btnReset.addEventListener('click', ()=>{
+    //reset color
+    selectColorInput.value = '#000000';
+    cellColor = selectColorInput.value;
+    //reset grid
+    gridSize = 16;
+    updateGrid(gridSize);
+})
 
 // FUNCTIONS
 // create grid in the container based on a grid size parameter
@@ -48,3 +59,13 @@ function createGrid(size) {
         container.appendChild(row);
     }
 }
+
+// update grid based on a grid size parameter
+function updateGrid(size) {
+    // first remove existing grid
+    while (container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
+    // create new grid    
+    createGrid(size);
+}   
