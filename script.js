@@ -5,6 +5,7 @@ const container = document.querySelector('#container');
 const gridSizeInput = document.querySelector('#gridSize-input');
 const selectColorInput = document.querySelector('#selectColor');
 const btnReset = document.querySelector('#btn-reset');
+const btnRandomColor = document.querySelector('#btn-randomColor');
 
 // Initial grid setup
 let gridSize = 16;
@@ -12,6 +13,7 @@ createGrid(gridSize);
 
 //  Initial cell setup
 let cellColor = '#000000';
+let randomColor = false;
 
 // CONTROLS EVENT LISTENERS
 // grid size change
@@ -38,7 +40,18 @@ btnReset.addEventListener('click', ()=>{
     cellColor = selectColorInput.value;
     //reset grid
     gridSize = 16;
+    randomColor = false;
     updateGrid(gridSize);
+})
+
+// random color button
+btnRandomColor.addEventListener('click', ()=>{
+    randomColor = !randomColor;
+    if (randomColor) {
+        btnRandomColor.classList.add('random-active');
+    } else {
+        btnRandomColor.classList.remove('random-active')
+    }
 })
 
 // FUNCTIONS
@@ -52,7 +65,7 @@ function createGrid(size) {
             const cell = document.createElement('div');
             cell.classList.add('cell');
             cell.addEventListener('mouseover', ()=>{
-                cell.style.backgroundColor = cellColor;
+                updateColor(cell,randomColor);
             })
             row.appendChild(cell);
         }
@@ -68,4 +81,13 @@ function updateGrid(size) {
     }
     // create new grid    
     createGrid(size);
-}   
+}
+
+// update an html cell color based on user color input or with a random color
+function updateColor(cell, random) {
+    if (random) {
+        cell.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+    } else {
+        cell.style.backgroundColor = cellColor;
+    }
+}
