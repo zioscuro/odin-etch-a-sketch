@@ -5,7 +5,9 @@ const container = document.querySelector('#container');
 const gridSizeInput = document.querySelector('#gridSize-input');
 const selectColorInput = document.querySelector('#selectColor');
 const btnReset = document.querySelector('#btn-reset');
-const btnRandomColor = document.querySelector('#btn-randomColor');
+const btnColorMode = document.querySelector('#btn-colorMode');
+const btnRandomMode = document.querySelector('#btn-randomMode');
+const btnEraserMode = document.querySelector('#btn-eraserMode');
 
 // Initial grid setup
 let gridSize = 16;
@@ -13,7 +15,7 @@ createGrid(gridSize);
 
 //  Initial cell setup
 let cellColor = '#000000';
-let randomColor = false;
+let colorMode = 'color';
 
 // CONTROLS EVENT LISTENERS
 // grid size change
@@ -40,19 +42,31 @@ btnReset.addEventListener('click', ()=>{
     cellColor = selectColorInput.value;
     //reset grid
     gridSize = 16;
-    randomColor = false;
+    colorMode = 'color';
     updateGrid(gridSize);
 })
 
-// random color button
-btnRandomColor.addEventListener('click', ()=>{
-    randomColor = !randomColor;
-    if (randomColor) {
-        btnRandomColor.classList.add('random-active');
-    } else {
-        btnRandomColor.classList.remove('random-active')
-    }
-})
+// pointer mode buttons
+// color mode
+btnColorMode.addEventListener('click', ()=>{
+    colorMode = 'color';
+    btnColorMode.classList.add('mode-active');
+    btnRandomMode.classList.remove('mode-active');
+    btnEraserMode.classList.remove('mode-active');
+});
+// random mode
+btnRandomMode.addEventListener('click', ()=>{
+    colorMode = 'random';
+    btnColorMode.classList.remove('mode-active');
+    btnRandomMode.classList.add('mode-active');
+    btnEraserMode.classList.remove('mode-active');
+});
+btnEraserMode.addEventListener('click', ()=>{
+    colorMode = 'eraser';
+    btnColorMode.classList.remove('mode-active');
+    btnRandomMode.classList.remove('mode-active');
+    btnEraserMode.classList.add('mode-active');
+});
 
 // FUNCTIONS
 // create grid in the container based on a grid size parameter
@@ -65,7 +79,7 @@ function createGrid(size) {
             const cell = document.createElement('div');
             cell.classList.add('cell');
             cell.addEventListener('mouseover', ()=>{
-                updateColor(cell,randomColor);
+                updateColor(cell,colorMode);
             })
             row.appendChild(cell);
         }
@@ -83,11 +97,16 @@ function updateGrid(size) {
     createGrid(size);
 }
 
-// update an html cell color based on user color input or with a random color
-function updateColor(cell, random) {
-    if (random) {
-        cell.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
-    } else {
-        cell.style.backgroundColor = cellColor;
+// update an html cell color based on color mode
+function updateColor(cell, mode) {
+    switch (mode) {
+        case 'color':
+            cell.style.backgroundColor = cellColor;
+            break;
+        case 'random':
+            cell.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+            break;
+        case 'eraser':
+            cell.style.backgroundColor = '#ffffff';
     }
 }
