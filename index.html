@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,27 +9,30 @@
     <link rel="stylesheet" href="./style.css">
     <script src="./script.js" defer></script>
 </head>
+
 <body>
-    <div id="controls">
-        <div class="controls-group" id="controls-gridSize">
-            <label for="gridSize">Choose a Grid Size (10 to 100)</label>
-            <input type="number" name="gridSize" min="10" max="100" id="gridSize-input" value="16">
+    <h1>Etch-a-Sketch</h1>
+    <main>
+        <div id="controls">
+            <div class="controls-group" id="controls-gridSize">
+                <label for="gridSize">Choose a Grid Size <br/> (10 to 100)</label>
+                <input type="number" name="gridSize" min="10" max="100" id="gridSize-input" value="16">
+            </div>
+            <div class="controls-group" id="controls-selectColor">
+                <label for="color">Select Color</label>
+                <input type="color" id="selectColor" name="color" value="#000000">
+            </div>            
+            <div class="controls-group" id="controls-cursorModes">
+                <button id="btn-reset">Reset</button>
+                <button id="btn-colorMode" class="mode-active" value="color">Color</button>
+                <button id="btn-colorOpacityMode" value="colorOpacity">Opacity</button>
+                <button id="btn-randomMode" value="random">Random</button>
+                <button id="btn-eraserMode" value="eraser">Eraser</button>
+            </div>
         </div>
-        <div class="controls-group" id="controls-selectColor">
-            <label for="color">Select Color</label>
-            <input type="color" id="selectColor" name="color" value="#000000">
-        </div>
-        <div class="controls-group" id="controls-reset">
-            <button id="btn-reset">Reset</button>
-        </div>
-        <div class="controls-group" id="controls-cursorModes">
-            <button id="btn-colorMode" class="mode-active" value="color">Color</button>
-            <button id="btn-colorOpacityMode" value="colorOpacity">Opacity</button>
-            <button id="btn-randomMode" value="random">Random</button>
-            <button id="btn-eraserMode" value="eraser">Eraser</button>
-        </div>        
-    </div>
-    
-    <div id="container"></div>
+        <div id="container"></div>
+    </main>
+    <h3>Designed an coded by <a href="https://github.com/zioscuro">Zioscuro</a></h3>
 </body>
+
 </html>
