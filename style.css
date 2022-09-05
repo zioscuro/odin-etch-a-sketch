@@ -89,11 +89,12 @@ button {
     border: 2px solid white;    
     padding: 5px;
     width: 120px;
+    cursor: pointer;
 }
 
 button:hover {
     background-color: white;
-    color: black;
+    color: #303030;
 }
 
 label {
@@ -101,15 +102,10 @@ label {
     margin-bottom: 5px;
 }
 
-.mode-active, .mode-active:hover {
-    color: black;
-    border-color: black;
+.mode-active {
+    color: #303030;
 }
 
 .mode-active {
-    background-color: yellow;
-}
-
-.mode-active:hover {
-    background-color: #cccc00;
+    background-color: white;
 }
